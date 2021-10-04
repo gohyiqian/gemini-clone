@@ -6,7 +6,7 @@
 
 ## See the official page here:
 
-[Real Website Here](gemini.com/apac/singapore)
+[Real Website Here](https://www.gemini.com/apac/singapore)
 
 ## Run the following command to install the necessary packages
 
