@@ -10,6 +10,7 @@ import AcademyPage from "./pages/AcademyPage";
 import WalletPage from "./pages/WalletPage";
 import ThemeContext from "./ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PriceShowPage from "./pages/PriceShowPage";
 
 const App = () => {
   const [theme, setTheme] = useState("dark");
@@ -49,6 +50,7 @@ const App = () => {
               <Route path="/prices">
                 <PricePage />
               </Route>
+              <Route path="/price/:symbol" component={PriceShowPage} />
               <Route path="/academy">
                 <AcademyPage />
               </Route>

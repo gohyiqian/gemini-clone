@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ThemeContext from "../ThemeContext";
 
 const Price = () => {
-  const [popularStock, setPopularStock] = useState([]);
+  const [popularCrypto, setPopularCrypto] = useState([]);
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
     // const stocksURL = `https://financialmodelingprep.com/api/v3/stock/actives?apikey=`;
@@ -13,7 +13,7 @@ const Price = () => {
       const res = await fetch(`${stocksURL}`);
       if (res.ok) {
         const payload = await res.json();
-        setPopularStock(payload.mostActiveStock);
+        setPopularCrypto(payload.mostActiveStock);
       }
     };
     getPopularStocks();
@@ -36,28 +36,30 @@ const Price = () => {
             </tr>
           </thead>
 
-          {popularStock.map((stock, index) => (
+          {popularCrypto.map((crypto, index) => (
             <tbody>
               <tr key={index}>
                 <td>
                   {" "}
-                  {stock.ticker} (
-                  <Link to={"/stock/" + stock.ticker}>{stock.companyName}</Link>
+                  {crypto.ticker} (
+                  <Link to={"/price/" + crypto.ticker}>
+                    {crypto.companyName}
+                  </Link>
                   )
                 </td>{" "}
-                <td>{stock.price}</td>
+                <td>{crypto.price}</td>
                 <td
                   style={
-                    stock.changes > 0 ? { color: "green" } : { color: "red" }
+                    crypto.changes > 0 ? { color: "green" } : { color: "red" }
                   }
                 >
                   <strong>
-                    {stock.changes} ({stock.changesPercentage}%)
+                    {crypto.changes} ({crypto.changesPercentage}%)
                   </strong>
                 </td>
-                <td>{stock.price}</td>
-                <td>{stock.price}</td>
-                <td>{stock.price}</td>
+                <td>{crypto.price}</td>
+                <td>{crypto.price}</td>
+                <td>{crypto.price}</td>
               </tr>
             </tbody>
           ))}

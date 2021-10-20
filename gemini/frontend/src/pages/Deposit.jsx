@@ -9,7 +9,7 @@ const Deposit = memo(() => {
 
   const handleSelect = (e) => {
     console.log(e);
-    setDisplay(e);
+    setDisplay("Selected: " + e);
   };
 
   const handleSubmit = () => {

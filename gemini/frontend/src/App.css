@@ -252,9 +252,14 @@ tr:hover {
   width: 100%;
 }
 
+.showPricePage {
+  text-align: left;
+}
+
 .Login.dark,
 .Signup.dark,
 .pricePage.dark,
+.showPricePage.dark,
 .walletPage.dark {
   background-color: #242424;
   color: white;
