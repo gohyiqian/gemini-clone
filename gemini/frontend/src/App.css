@@ -308,6 +308,19 @@ tr:hover {
   margin: auto;
 }
 
+.transferTitle {
+  padding-top: 20px;
+  text-align: left;
+}
+.transferFunds {
+  height: 500px;
+  text-align: left;
+}
+.transferHis {
+  height: 200px;
+  text-align: left;
+}
+
 @media (max-width: 900px) {
   #text h1 {
     font-size: 2rem;
