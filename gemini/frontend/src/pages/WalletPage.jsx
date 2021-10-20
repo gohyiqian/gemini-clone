@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Container, Col, Row, Card, Tabs, Tab } from "react-bootstrap";
-import PricePage from "./PricePage";
+import { withRouter } from "react-router";
+import TransactionPage from "./TransactionPage";
+import TransferPage from "./TransferPage";
+import BalancePage from "./BalancePage";
 import ThemeContext from "../ThemeContext";
 
-const WalletPage = () => {
+const WalletPage = ({ status, setStatus }) => {
   const [key, setKey] = useState("balances");
   const { theme } = useContext(ThemeContext);
 
@@ -14,8 +17,8 @@ const WalletPage = () => {
       <Container>
         <Row xs={1} md={1}>
           <Col>
-            <Card>
-              <Card.Img id="icon" img src="" />
+            <Card className={`walletCard ${theme}`}>
+              <Card.Img id="icon" />
               <Card.Body>
                 <Card.Title>Account Balances</Card.Title>
                 <Tabs
@@ -25,13 +28,13 @@ const WalletPage = () => {
                   className="mb-3"
                 >
                   <Tab eventKey="balances" title="Balances">
-                    <PricePage />
+                    <BalancePage />
                   </Tab>
                   <Tab eventKey="transaction" title="Transaction History">
-                    <PricePage />
+                    <TransactionPage />
                   </Tab>
                   <Tab eventKey="transfer" title="Transfer History">
-                    <PricePage />
+                    <TransferPage />
                   </Tab>
                 </Tabs>
               </Card.Body>
@@ -43,4 +46,4 @@ const WalletPage = () => {
   );
 };
 
-export default WalletPage;
+export default withRouter(WalletPage);

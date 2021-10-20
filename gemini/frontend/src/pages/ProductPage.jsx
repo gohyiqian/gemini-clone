@@ -10,9 +10,7 @@ const ProductPage = () => {
       <h1>Our Products</h1>
       <p>Sign up now to experience it yourself!</p>
       <Button size="md" variant="info">
-        <Link style={{ "text-decoration": "none" }} to="/signup">
-          Sign Up Now
-        </Link>
+        <Link to="/signup">Sign Up Now</Link>
       </Button>
     </div>
   );

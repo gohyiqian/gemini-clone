@@ -245,6 +245,7 @@ tr:hover {
   padding: 130px 0;
   text-align: center;
 }
+
 .pricePage {
   padding: 120px 100px;
   margin: auto;
@@ -265,19 +266,29 @@ tr:hover {
   max-width: 320px;
 }
 
+.walletCard {
+  text-align: center;
+}
+
+.walletCard.dark {
+  background-color: #242424;
+  color: white;
+}
+
 .success {
   background-color: #90ee90;
   border-radius: 8px;
-  margin-bottom: 8px;
-  padding: 16px;
+  margin: 20px 40%;
+  padding: 10px;
   text-align: center;
 }
 
 .fail {
   background-color: #ffcccb;
+  color: black;
   border-radius: 8px;
-  margin-bottom: 8px;
-  padding: 16px;
+  margin: 20px 40%;
+  padding: 10px;
   text-align: center;
 }
 

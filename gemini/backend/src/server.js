@@ -1,26 +1,31 @@
 import express from "express";
-import { routes } from "./routes";
-import { initializeDbConnection } from "./db";
-
-const PORT = process.env.PORT || 8080;
-
 const app = express();
+const usersController = require("./controllers/usersController");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const strategy = require("./passport");
+require("dotenv").config();
 
-// This allows us to access the body of POST/PUT
-// requests in our route handlers (as req.body)
+mongoose.connect(
+  process.env.MONGO_URL,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("Connected to MongoDB");
+  }
+);
+
+// enable passport middleware for the server
+passport.use(strategy);
+app.use(passport.initialize());
+
+// ?
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 app.use(express.json());
+app.use("/api/users", usersController);
 
-// Add all the routes to our Express server
-// exported from routes/index.js
-routes.forEach((route) => {
-  app[route.method](route.path, route.handler);
-});
-
-// Connect to the database, then start the server.
-// This prevents us from having to create a new DB
-// connection for every request.
-initializeDbConnection().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-  });
-});
+app.listen(process.env.PORT, () =>
+  console.log(`Backend server is listening on ${process.env.PORT}`)
+);

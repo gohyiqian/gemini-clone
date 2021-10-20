@@ -1,12 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Navbar } from "react-bootstrap";
 import ThemeChangerButton from "./ThemeChangerButton";
 import ThemeContext from "../ThemeContext";
-// import { status, useStatus } from "../auth/useStatus";
 
-const Navibar = () => {
+const Navibar = ({ status, setStatus, setIsAuth }) => {
   const { theme } = useContext(ThemeContext);
+
+  const handleLogOut = () => {
+    setStatus("Log In");
+    setIsAuth(false);
+    localStorage.removeItem("token");
+  };
+
   return (
     <div>
       <Navbar
@@ -32,6 +38,9 @@ const Navibar = () => {
           <Link className={`${theme}`} to="/academy">
             Academy
           </Link>
+          <Link className={`${theme}`} to="/wallet">
+            Wallet
+          </Link>
           <form className="form-inline">
             <input
               className="form-control"
@@ -40,9 +49,15 @@ const Navibar = () => {
             />
           </form>
           <Button variant="secondary" id="responsive-navbar-nav">
-            <Link className={`${theme}`} to="/login">
-              Log In
-            </Link>
+            {status === "Log Out" ? (
+              <Link className={`${theme}`} to="/" onClick={handleLogOut}>
+                {status}
+              </Link>
+            ) : (
+              <Link className={`${theme}`} to="/login">
+                {status === "Log In" ? "Log In" : "Log Out"}
+              </Link>
+            )}
           </Button>
           <Button variant="secondary" id="responsive-navbar-nav">
             <Link className={`${theme}`} to="/signup">

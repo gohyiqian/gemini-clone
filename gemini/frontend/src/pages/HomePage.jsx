@@ -14,7 +14,7 @@ const Home = () => {
             <h1>We are live in Singapore now!</h1>
             <p>Buy, sell, and store crypto on Crypto Trader</p>
             <Button size="lg" variant="info">
-              <Link style={{ "text-decoration": "none" }} to="/signup">
+              <Link style={{ textDecoration: "none" }} to="/signup">
                 Sign Up Now
               </Link>
             </Button>
@@ -24,7 +24,7 @@ const Home = () => {
           className="App-logo"
           id="phone"
           src="images/phone_light.png"
-          alt=" "
+          alt="logo"
           height="600px"
         />
       </div>
@@ -33,7 +33,7 @@ const Home = () => {
           <Row xs={1} md={3} className="g-5">
             <Col>
               <Card className={`section-white ${theme}`}>
-                <Card.Img id="icon" img src="images/earn.png" />
+                <Card.Img id="icon" src="images/earn.png" />
                 <Card.Body>
                   <Card.Title>Grow Your Wealth</Card.Title>
                   <Card.Text>
@@ -85,7 +85,7 @@ const Home = () => {
       </div>
       <div className={`section-white ${theme}`}>
         <Button size="lg" variant="info">
-          <Link style={{ "text-decoration": "none" }} to="/signup">
+          <Link style={{ textDecoration: "none" }} to="/signup">
             Sign Up Now
           </Link>
         </Button>

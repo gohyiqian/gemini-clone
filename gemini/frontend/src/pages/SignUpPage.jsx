@@ -2,21 +2,28 @@ import React, { useState, useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import ThemeContext from "../ThemeContext";
-import axios from "axios";
-import { useToken } from "../auth/useToken";
+// import validator from "validator";
 
-const SignUpPage = () => {
-  const [token, setToken] = useToken();
+const SignUpPage = ({ showSuccessMsg, setShowSuccessMsg }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  // const [emailError, setEmailError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
+
   const { theme } = useContext(ThemeContext);
   const history = useHistory();
 
   const handleUsername = (e) => {
     setUsername(e.target.value);
   };
+
+  // const validateEmail = (e) => {
+  //   validator.isEmail(e.target.value)
+  //     ? setEmailError("Valid Email") && setEmail(e.target.value)
+  //     : setEmailError("Invalid Email");
+  // };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -34,17 +41,23 @@ const SignUpPage = () => {
     return username.length > 0 && password.length > 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault(); // Need to put this line first
-    const response = await axios.post("/api/signup", {
-      username: username,
-      email: email,
-      password: password,
+    const response = await fetch("/api/users/signup", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
     });
-    const { token } = response.data;
-    setToken(token);
-
-    alert(`Welcome ${username}, You are signed up!`);
+    const result = await response.json();
+    setShowSuccessMsg(true);
+    setMessage(result.msg);
+    // alert(`Welcome ${username}, You are signed up!`);
     history.push("/login"); //go to login page after signing up
   };
 
@@ -53,7 +66,8 @@ const SignUpPage = () => {
       <img src={`./images/sm_logo_${theme}.png`} height="80px" alt="logo" />{" "}
       <br />
       <h2>Create Account</h2> <br />
-      <Form onSubmit={handleSubmit}>
+      {showSuccessMsg && <div className="success">{message}</div>}
+      <Form onSubmit={handleSignUp}>
         <Form.Group size="lg" controlId="username">
           <Form.Control
             type="text"
@@ -70,6 +84,7 @@ const SignUpPage = () => {
             value={email}
             onChange={handleEmail}
           />
+          {/* <span>{emailError}</span> */}
           <br />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
@@ -79,7 +94,9 @@ const SignUpPage = () => {
             value={password}
             onChange={handlePassword}
           />
-          <br />
+        </Form.Group>
+        <br />
+        <Form.Group size="lg" controlId="confirmPassword">
           <Form.Control
             type="password"
             placeholder="Confirm Password"
